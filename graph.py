@@ -4,10 +4,13 @@ import sys
 class Block:  # Basic Block class to store data on each block
     def __init__(self,leader):
         self.leader = leader
-        self.body = ""
+        self.body = []
         self.terminator = ""
         self.edges = []
         self.label = ""
+        self.inVals = {}
+        self.outVals = {}
+    
 
     def get_leader(self):
         return self.leader
@@ -24,7 +27,7 @@ class Block:  # Basic Block class to store data on each block
         self.terminator = terminator
     
     def add_body(self,line):
-        self.body = self.body + line
+        self.body.append(line)
 
     def add_edge(self,block):
         self.edges.append(block)
@@ -66,10 +69,11 @@ def main():
             if line != "":
                 strippedFunc.append(line)
 
-        run(strippedFunc)
+        blocksOut = run(strippedFunc)
 
     
     file.close()
+    return blocksOut
 
 def run(function):
     markedLines = mark(function)
@@ -81,6 +85,7 @@ def run(function):
     funcName = func[2][1:nameIndex] # Get the slice of the function name
 
     outputGraph(blocks,funcName)
+    return blocks
 
 def mark(lines):
 

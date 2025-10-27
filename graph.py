@@ -11,6 +11,7 @@ class Block:  # Basic Block class to store data on each block
         self.inVals = {}
         self.outVals = {}
         self.size = 1
+        self.lines = []
     
 
     def get_leader(self):
@@ -25,6 +26,8 @@ class Block:  # Basic Block class to store data on each block
         return self.label
     def get_size(self):
         return self.size
+    def get_lines(self):
+        return self.lines
     
     def set_terminator(self,terminator):
         self.terminator = terminator
@@ -40,6 +43,9 @@ class Block:  # Basic Block class to store data on each block
 
     def set_size(self,num):
         self.size += num
+    
+    def set_lines(self):
+        self.lines = [self.leader] + self.body + [self.terminator]
 def main():
     if (len(sys.argv) == 1):
         raise RuntimeError("Must provide input file")
@@ -85,9 +91,8 @@ def run(function):
     blocks = buildGraph(markedLines,function)
     createEdges(blocks,function)
     for block in blocks:
+        block.set_lines()
         if (block.get_leader() != block.get_terminator()):  # If leader and terminator are different instructions (so at least two lines)
-            print(block.get_leader())
-            print(block.get_terminator())
             block.set_size(1+len(block.get_body()))
     # Output graph here?
     func = function[0].split()

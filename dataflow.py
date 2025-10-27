@@ -29,7 +29,9 @@ def main():
     blocks = graph.main()
 
     for block in blocks:
-        print(block.get_size())
+        print(block.get_lines())
+
+        # perhaps we should iterate over each line here and pass the line into source and sink
         if(source):
             # do something
             pass
@@ -38,7 +40,7 @@ def main():
             pass
     
         
-
+        
 
 
 if __name__ == "__main__":

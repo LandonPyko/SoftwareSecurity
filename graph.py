@@ -8,8 +8,7 @@ class Block:  # Basic Block class to store data on each block
         self.terminator = ""
         self.edges = []
         self.label = ""
-        self.inVals = {}
-        self.outVals = {}
+        self.taintVals = {}
         self.size = 1
         self.lines = []
     
@@ -28,6 +27,8 @@ class Block:  # Basic Block class to store data on each block
         return self.size
     def get_lines(self):
         return self.lines
+    def get_vals(self):
+        return self.taintVals
     
     def set_terminator(self,terminator):
         self.terminator = terminator
@@ -46,6 +47,9 @@ class Block:  # Basic Block class to store data on each block
     
     def set_lines(self):
         self.lines = [self.leader] + self.body + [self.terminator]
+
+    def addVal(self,val):
+        self.taintVals.add(val)
 def main():
     if (len(sys.argv) == 1):
         raise RuntimeError("Must provide input file")

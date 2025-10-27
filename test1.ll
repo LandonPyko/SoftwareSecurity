@@ -3,12 +3,12 @@ define i32 @main(i32 %argc) {
         br i1 %noArgs, label %lbl_t, label %lbl_f
 lbl_t:
         %varT = add i32 1, 0  @SOURCE()
-        %varA = add i32 1, 0
+        %varA = div i32 1, %varT
         br label %end
 lbl_f:
         %varF = add i32 2, 0
-        %varB = add i32 1, 0
-        %varC = add i32 1, 0 @SINK()
+        %varB = sub i32 1, 0
+        %varC = mul i32 1, 0 @SINK()
         br label %end
 end:
         %var = phi i32 [%varT, %lbl_t], [%varF, %lbl_f]

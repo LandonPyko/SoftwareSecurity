@@ -8,7 +8,7 @@ class Block:  # Basic Block class to store data on each block
         self.terminator = ""
         self.edges = []
         self.label = ""
-        self.taintVals = {}
+        self.taintVals = set()
         self.size = 1
         self.lines = []
     

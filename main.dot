@@ -1,12 +1,9 @@
 digraph{
 	Start [shape=record,label=Start]
-	Start -> lbl_t[label=0]
-	Start -> lbl_f[label=1]
-	lbl_t [shape=record,label=lbl_t]
-	lbl_t -> end[label=0]
-	lbl_f [shape=record,label=lbl_f]
-	lbl_f -> end[label=0]
-	end [shape=record,label=end]
-	end -> return[label=0]
+	Start -> after_SOURCE4[label=0]
+	after_SOURCE4 [shape=record,label=after_SOURCE4]
+	after_SOURCE4 -> after_SINK9[label=0]
+	after_SINK9 [shape=record,label=after_SINK9]
+	after_SINK9 -> return[label=0]
 	return [shape=record,label=return]
 }

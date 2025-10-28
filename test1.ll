@@ -5,8 +5,11 @@ define i32 @main() #0 {
   store i32 %secret, ptr %aVar
   %a1 = load i32, ptr %aVar
   store i32 %a1, ptr %bVar
-  %b1 = load i32, ptr %bVar
-  call void @SINK(i32 %secret)
+  br label %next
+
+next:
+  %b1 = add i32 1, %secret
+  call void @SINK(i32 %b1)
   ret i32 0
 }
 

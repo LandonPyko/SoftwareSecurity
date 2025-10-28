@@ -13,13 +13,13 @@ def source(line,block):
         block.addVal(lhs)
     
 def sink(line,block):
+    global flow
     if("@SINK" in line):
         for val in block.get_vals():
             if val in line:
-                print("hello")
                 flow = True
-    print(flow)
 def main():
+    global flow
     blocks = graph.main()
 
 # Iteration thought process (for loops/backedges):
@@ -29,7 +29,6 @@ def main():
 #   - Not the most efficient but it would work
 
     for block in blocks:
-        print(block.get_vals())
         for line in block.get_lines():
             source(line,block) # Check if value is a source
             sink(line,block) # Check if value is a sink
@@ -46,11 +45,21 @@ def main():
                 mathInst(line,block)
 
             # ICMP
+            if ("icmp" in line):
+                compareInst(line,block)
 
             # LOAD
+            if ("load" in line):
+                loadInst(line,block)
+
 
             # STORE
+            if ("store" in line):
+                storeInst(line,block)
 
+            # GEP
+            if ("getelementptr" in line):
+                gepInst(line,block)
 
 
         # ====================================================================================
@@ -75,16 +84,39 @@ def mathInst(line, block):  # checks if using tainted value, if so propagate tai
     if tainted:
         block.addVal(lhs)
     return
-
+# Math and Compare are the same as of now. Separating into different functions for 
 def compareInst(line,block):
+    lhs = line.split()[0]
+    tainted = False
+    for val in block.get_vals():
+        if val in line:
+            tainted = True
+    if tainted:
+        block.addVal(lhs)
     return
 
 def loadInst(line,block):
+    # %a2 = load i32, ptr %aVar
+
+    # Case 1: Load tainted val into variable
+
+
+    # Case 2: Overwrite tainted val
     return
 
 def storeInst(line,block):
+
+    #  - store i32 <opd1>, ptr <opd2>
+
+
+    # Case 1: Tainted val stored into new variable
+    # opd 1 is tainted value
+
+    # Case 2: Overwriting tainted val
     return
 
+def gepInst(line,block):
+    return
 
 if __name__ == "__main__":
     main()

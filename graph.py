@@ -1,6 +1,5 @@
 import sys
 
-
 class Block:  # Basic Block class to store data on each block
     def __init__(self,leader):
         self.leader = leader
@@ -12,7 +11,6 @@ class Block:  # Basic Block class to store data on each block
         self.size = 1
         self.lines = []
     
-
     def get_leader(self):
         return self.leader
     def get_body(self):
@@ -32,7 +30,7 @@ class Block:  # Basic Block class to store data on each block
     
     def set_terminator(self,terminator):
         self.terminator = terminator
-    
+
     def add_body(self,line):
         self.body.append(line)
 
@@ -50,6 +48,7 @@ class Block:  # Basic Block class to store data on each block
 
     def addVal(self,val):
         self.taintVals.add(val)
+
 def main():
     if (len(sys.argv) == 1):
         raise RuntimeError("Must provide input file")
@@ -72,21 +71,14 @@ def main():
                 newFunc.append(strippedLines[j])
                 if (strippedLines[j].endswith('}')):
                     break
-            functions.append(newFunc)
-            
-
-
-
+            functions.append(newFunc)       
     
     for func in functions:
         strippedFunc = []
         for line in func:
             if line != "":
                 strippedFunc.append(line)
-
         blocksOut = run(strippedFunc)
-
-    
     file.close()
     return blocksOut
 
@@ -141,8 +133,6 @@ def mark(lines):
                 status[i] = 3
             else:
                 status[i] = 2
-        
-    
 
     return status
 
@@ -200,7 +190,6 @@ def buildGraph(status,lines):
 
     return blocks
 
-
 def createEdges(blocks,lines):
 
     # Iterate over blocks and refer to original lines to access labels
@@ -218,8 +207,6 @@ def createEdges(blocks,lines):
                     label = label[:len(label)-1]
                 labels.append(label[1:])  # Skip over the %
 
-        
-
         # Once labels are found, go through and find the actual line
         edgeInstructions = [] 
         for k in range(len(labels)):
@@ -227,9 +214,6 @@ def createEdges(blocks,lines):
                 lineIndex = lines.index(labels[k] + ':')
                 edgeInstructions.append(lines[lineIndex+1])
             
-
-
-        
         # Transition from instruction -> block, and add block to edge list
         for instruction in edgeInstructions:
             for blockEdge in blocks:
@@ -243,8 +227,6 @@ def createEdges(blocks,lines):
         if ("call" in blocks[i].get_terminator()):
             blocks[i].add_edge(blocks[i+1])
     
-
-
 def outputGraph(blocks,name):
 
     outputFile = name + ".dot"
@@ -258,13 +240,11 @@ def outputGraph(blocks,name):
         for i in range(len(edges)):
             graphOut.append('\t' + block.get_label() + " -> " + edges[i].get_label() + "[label=" + str(i) + "]\n") # Edge definition
 
-
     # Output to .dot
     output.write("digraph{\n")
     for line in graphOut: # Write each line
         output.write(line)
     output.write("}")
-
 
 if __name__ == "__main__":
     main()

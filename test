@@ -1,0 +1,14 @@
+#!/bin/bash
+
+make
+./graph "test1.ll"
+dot main.dot -o main.png -Tpng
+./graph "test2.ll"
+dot main.dot -o main2.png -Tpng
+./graph "test3.ll"
+dot main.dot -o main3.png -Tpng
+./graph "test4.ll"
+dot main.dot -o main4.png -Tpng
+./graph "test5.ll"
+dot main.dot -o main5.png -Tpng
+

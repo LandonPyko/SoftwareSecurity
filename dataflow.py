@@ -39,7 +39,10 @@ def main():
 
         # ====================================================================================
             # HANDLE INSTRUCTIONS HERE
-
+            # Math, icmp, gep, can all use the same logic
+            # Only need additional logic for load and store
+            # unsure about phi
+            
             # MATH
             if("add" in line) or ("sub" in line) or ("mul" in line) or ("div" in line):
                 mathInst(line,block)
@@ -60,6 +63,10 @@ def main():
             # GEP
             if ("getelementptr" in line):
                 gepInst(line,block)
+
+            # PHI
+            if ("phi" in line):
+                phiInst(line,block)
 
 
         # ====================================================================================
@@ -116,6 +123,23 @@ def storeInst(line,block):
     return
 
 def gepInst(line,block):
+    lhs = line.split()[0]
+    tainted = False
+    for val in block.get_vals():
+        if val in line:
+            tainted = True
+    if tainted:
+        block.addVal(lhs)
+    return
+
+def phiInst(line,block):
+    lhs = line.split()[0]
+    tainted = False
+    for val in block.get_vals():
+        if val in line:
+            tainted = True
+    if tainted:
+        block.addVal(lhs)
     return
 
 if __name__ == "__main__":

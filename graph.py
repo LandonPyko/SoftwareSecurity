@@ -8,6 +8,7 @@ class Block:  # Basic Block class to store data on each block
         self.edges = []
         self.label = ""
         self.taintVals = set()
+        self.prevTaintVals = set()
         self.size = 1
         self.lines = []
     
@@ -27,6 +28,8 @@ class Block:  # Basic Block class to store data on each block
         return self.lines
     def get_vals(self):
         return self.taintVals
+    def get_prevVals(self):
+        return self.prevTaintVals
     
     def set_terminator(self,terminator):
         self.terminator = terminator

@@ -3,12 +3,19 @@
 make
 ./graph "test1.ll"
 dot main.dot -o main.png -Tpng
+./dataflow "test1.ll"
 ./graph "test2.ll"
 dot main.dot -o main2.png -Tpng
+./dataflow "test2.ll"
 ./graph "test3.ll"
 dot main.dot -o main3.png -Tpng
+./dataflow "test3.ll"
 ./graph "test4.ll"
 dot main.dot -o main4.png -Tpng
+./dataflow "test4.ll"
 ./graph "test5.ll"
 dot main.dot -o main5.png -Tpng
-
+./dataflow "test5.ll"
+./graph "test6.ll"
+dot main.dot -o main6.png -Tpng
+./dataflow "test6.ll"

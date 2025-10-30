@@ -12,7 +12,8 @@ ifBody:
 
 afterIf:
   %a2 = load i32, ptr %aVar
-  call void @SINK(i32 %a2)
+  %a3 = getelementptr i32,i32* %aVar, i32 2
+  call void @SINK(i32 %a3)
   ret i32 0
 }
 

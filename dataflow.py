@@ -41,9 +41,8 @@ def main():
 
             # ====================================================================================
                 # HANDLE INSTRUCTIONS HERE
-                # Math, icmp, gep, can all use the same logic
+                # Math, icmp, gep, phi can all use the same logic
                 # Only need additional logic for load and store
-                # unsure about phi
             
                 # MATH
                 if("add" in line) or ("sub" in line) or ("mul" in line) or ("div" in line):

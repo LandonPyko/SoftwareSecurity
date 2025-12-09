@@ -1,12 +1,20 @@
 import { useState } from 'react'
+import axios from 'axios'
 // Need an admin account
 
 export default function Login(){
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
 
-    function handleSubmit(){
-        alert("Creating " + name + " " + password);
+    const handleSubmit = async function(e){
+        e.preventDefault();
+        const info = {username:name, pw:password}
+        axios.post("http://localhost:3000/login",info)
+        .then(res=>{
+            console.log(res.data);
+        });
+
+        //alert("Creating " + name + " " + password);
     }
     return(
     <div>

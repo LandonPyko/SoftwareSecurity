@@ -3,7 +3,7 @@ import cors from "cors";
 import { initDB } from "./db.js";
 
 const app = express();
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors());
 app.use(express.json());
 
 const db = await initDB();  // <-- Open the database

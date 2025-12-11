@@ -92,7 +92,7 @@ export default function Board({ currentUser , onLogout}) {
             <hr />
 
             {/* Posts */}
-            <h2>Recent Posts</h2>
+            <h2>All Posts</h2>
             {posts.length === 0 ? (
                 <p>No posts yet.</p>
             ) : (

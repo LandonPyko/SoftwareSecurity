@@ -38,7 +38,7 @@ app.post("/login", async (req, res) => {
 
     if (user) {
         res.json({ success: true });
-    } else if (username === "admin" && pw === "adminpass") {
+    } else if (username === "admin" && pw === "admin") {
         res.json({ success: true });
     } else {
         res.json({ success: false, message: "Invalid username or password" });
@@ -86,6 +86,7 @@ app.delete("/posts/:id", async (req, res) => {
     const { id } = req.params;
 
     try {
+        console.log(id)
         await db.run("DELETE FROM posts WHERE id = ?", [id]);
         res.json({ success: true });
     } catch (err) {

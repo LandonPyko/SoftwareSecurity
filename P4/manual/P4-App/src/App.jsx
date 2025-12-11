@@ -11,12 +11,16 @@ function App() {
     const [signupMode, setSignupMode] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
 
+    function handleLogout(){
+      setCurrentUser(null);
+      setLoggedIn(null);
+    }
     if (signupMode) {
         return <Signup onSignup={() => setSignupMode(false)} />;
     }
 
     if (loggedIn) {
-        return <Board currentUser={currentUser} />;
+        return <Board currentUser={currentUser}  onLogout={handleLogout}/>;
     }
 
     return (

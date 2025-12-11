@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios'
 
-export default function Board({ currentUser }) {
+export default function Board({ currentUser , onLogout}) {
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
     const [opinion, setOpinion] = useState('');
@@ -9,8 +10,8 @@ export default function Board({ currentUser }) {
     // Fetch posts from backend
     useEffect(() => {
         const fetchPosts = async () => {
-            const res = await fetch("http://localhost:3000/posts");
-            const data = await res.json();
+            const res = await axios.get("http://localhost:3000/posts");
+            const data = res.data;
             setPosts(data);
         };
         fetchPosts();
@@ -22,13 +23,11 @@ export default function Board({ currentUser }) {
 
         const newPost = { username: currentUser, title, url, opinion };
 
-        const res = await fetch("http://localhost:3000/posts", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newPost)
-        });
+        const res = await axios.post("http://localhost:3000/posts", 
+            newPost,{headers: { "Content-Type": "application/json" }}
+        );
 
-        const data = await res.json();
+        const data = res.data;
         if (data.success) {
             setPosts(prev => [data.post, ...prev]);
             setTitle("");
@@ -38,21 +37,24 @@ export default function Board({ currentUser }) {
     };
     // Delete a post
     const handleDelete = async (id) => {
-        const res = await fetch(`http://localhost:3000/posts/${id}`, {
-            method: "DELETE"
-        });
+        const res = await axios.delete(`http://localhost:3000/posts/${id}`);
 
-        const data = await res.json();
+        const data = res.data;
         if (data.success) {
             setPosts(prev => prev.filter(p => p.id !== id));
         }
     };
 
 
+
     return (
         <div>
             <h1>Article Board</h1>
-            <h3>You are logged in as: {currentUser}</h3>
+            <div>
+                <h3>You are logged in as: {currentUser}</h3>
+                <br></br>
+                <button onClick={onLogout}>Log Out</button>
+            </div>
 
             {/* Submit Form */}
             <form onSubmit={handleSubmit}>
@@ -99,9 +101,9 @@ export default function Board({ currentUser }) {
                         <h3>{post.title}</h3>
                         <p><a href={post.url} target="_blank">{post.url}</a></p>
                         <p>{post.opinion}</p>
-                        <p><i>Posted by: {post.user}</i></p>
-
-                        {post.username === currentUser && (
+                        <p><i>Posted by: {post.username}</i></p>
+                        {/* Convoluted check to fix timing issue. Fixes asynchronous check */}
+                        {post.username && currentUser && (post.username === currentUser || currentUser === "admin") && (
                             <button onClick={() => handleDelete(post.id)}>Delete</button>
                         )}
                     </div>

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
@@ -12,7 +13,7 @@ import pg from "pg";
 
 const app = express();
 const httpServer = createServer(app);
-
+console.log('DATABASE_URL:', process.env.DATABASE_URL);
 declare module "http" {
   interface IncomingMessage {
     rawBody: unknown;

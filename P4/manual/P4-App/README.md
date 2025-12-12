@@ -2,6 +2,13 @@
 
 Install: express, sqlite3, cors, and axios
 
-npm run dev to start React Server
+open 2 terminals
 
-npm start to run backend server
+In both, go to the src directory
+
+To start React Server
+npm run dev
+
+To run backend server
+npm start
+

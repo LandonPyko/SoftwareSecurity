@@ -1,12 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
 
+
+
 export default function Login({ onLogin, onSignupClick, currentUser}) {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
 
         const info = { username: name, pw: password };
 

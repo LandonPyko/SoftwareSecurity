@@ -4,6 +4,9 @@ Install Postgresql: sudo apt install postgresql postgresql-contrib
 sudo service postgresql start
 Set postgresql password: sudo passwd postgres
 
+You might need to run this to install everything. 
+npm install express dotenv express-session passport passport-local pg bcrypt connect-pg-simple drizzle-orm
+
 Install dotenv: npm install dotenv
 Create .env file in Link-Board that holds: DATABASE_URL=postgres://postgres:mypassword@localhost:5432/linkboard
 Replace mypassword with a password you set
